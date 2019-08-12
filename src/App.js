@@ -16,14 +16,17 @@ function App() {
   const [cart, setCart] = useState(localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []);
 
   const addItem = item => {
-    setCart([...cart, item]);
+    if (!cart.find(cartItem => cartItem.id === item.id)) {
+      setCart([...cart, item]);
+    }
   };
 
   const removeItem = id => {
-    setCart(cart.filter(item => item.id != id));
+    setCart(cart.filter(item => item.id !== id));
   };
 
   useEffect(() => {
+    console.log("here");
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
